@@ -1,27 +1,26 @@
 import { NextResponse } from "next/server";
+import { createAdminSession, verifyAdminLogin } from "@/lib/auth";
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const { username, password } = await req.json();
+    const body = await request.json();
+    const username = String(body.username || "").trim();
+    const password = String(body.password || "");
 
-    if (
-      username === process.env.ADMIN_USERNAME &&
-      password === process.env.ADMIN_PASSWORD
-    ) {
-      return NextResponse.json({
-        success: true,
-        message: "Login successful",
-      });
+    const valid = await verifyAdminLogin(username, password);
+
+    if (!valid) {
+      return NextResponse.json(
+        { error: "Invalid username or password" },
+        { status: 401 }
+      );
     }
 
-    return NextResponse.json(
-      { success: false, message: "Invalid username or password" },
-      { status: 401 }
-    );
+    await createAdminSession(username);
+
+    return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
+    console.error("Login error:", error);
+    return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }

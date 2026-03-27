@@ -1,0 +1,546 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&family=Poppins:wght@300;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", "Noto Sans Sinhala", sans-serif;
+  background: linear-gradient(#ffffff, #e6f3ff);
+}
+
+/* ===== INTRO SCREEN ===== */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 999;
+}
+
+/* ===== REAL LOTUS FLOWER (4s BLOOM) ===== */
+.lotus {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  animation: lotusMain 4s ease forwards;
+}
+
+/* center core */
+.lotus::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #ffd6f0, #ff66cc);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: centerBloom 2s ease forwards;
+}
+
+/* petals */
+.lotus::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, #ff9de2 30%, transparent 70%),
+    radial-gradient(circle at 100% 50%, #ff9de2 30%, transparent 70%),
+    radial-gradient(circle at 50% 100%, #ff9de2 30%, transparent 70%),
+    radial-gradient(circle at 0% 50%, #ff9de2 30%, transparent 70%);
+  transform: scale(0) rotate(0deg);
+  opacity: 0;
+  animation: petalsOpen 3.5s ease forwards;
+}
+
+/* outer petals layer */
+.lotus span {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 10%, #ff4dc4 25%, transparent 70%),
+    radial-gradient(circle at 70% 10%, #ff4dc4 25%, transparent 70%),
+    radial-gradient(circle at 90% 70%, #ff4dc4 25%, transparent 70%),
+    radial-gradient(circle at 10% 70%, #ff4dc4 25%, transparent 70%);
+  transform: scale(0) rotate(45deg);
+  opacity: 0;
+  animation: outerPetals 4s ease forwards;
+}
+
+/* animations */
+@keyframes lotusMain {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes centerBloom {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes petalsOpen {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes outerPetals {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2) rotate(225deg);
+    opacity: 1;
+  }
+}
+
+/* glow effect */
+.lotus {
+  box-shadow: 0 0 0px transparent;
+  animation: lotusMain 4s ease forwards, glowLotus 3s infinite alternate;
+}
+
+@keyframes glowLotus {
+  from {
+    box-shadow: 0 0 10px pink;
+  }
+  to {
+    box-shadow: 0 0 40px hotpink;
+  }
+}
+
+/* ===== INTRO TEXT ===== */
+.introText {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #444;
+  max-width: 80%;
+  line-height: 1.6;
+
+  opacity: 0;
+  animation: fadeInText 2s ease forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+/* ===== LANGUAGE SWITCH ===== */
+.langSwitch {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 200;
+}
+
+.langSwitch button {
+  margin: 5px;
+  padding: 6px 12px;
+  background: gold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ===== HEADER ===== */
+.topbar {
+  padding: 20px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+}
+
+.brandWrap {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logoImage {
+  width: 80px;
+}
+
+.siteTitle {
+  font-size: 2.2rem;
+  color: #e7cf8a;
+  font-weight: 700;
+}
+
+/* ===== HERO ===== */
+.hero {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background-image:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)),
+    url("https://images.unsplash.com/photo-1578926375605-eaf7559b1458?auto=format&fit=crop&w=1600&q=80");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.heroContent {
+  color: white;
+  animation: glowText 3s infinite alternate;
+}
+
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 10px gold;
+  }
+  to {
+    text-shadow: 0 0 30px gold;
+  }
+}
+
+.heroTitle {
+  font-size: 3rem;
+  color: gold;
+}
+
+.heroText {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+/* ===== BUTTONS ===== */
+.heroButtons {
+  margin-top: 20px;
+}
+
+.whatsappBtn {
+  background: #25d366;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 25px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.locationBtn {
+  background: gold;
+  color: black;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+/* ===== INFO ===== */
+.infoSection {
+  padding: 40px;
+}
+
+.infoCard {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.infoCard h3 {
+  color: #b89433;
+}
+
+/* ===== FLOAT BUTTON ===== */
+.floatingWhatsApp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  padding: 15px;
+  border-radius: 50%;
+  color: white;
+  font-size: 25px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .siteTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroText {
+    font-size: 1rem;
+  }
+}
+
+.productImageWrap {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.productInfo {
+  padding: 12px;
+  text-align: center;
+}
+
+.productCard {
+  transition: 0.3s;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+}
+
+/* ================= PREMIUM SHOP UI ================= */
+
+/* Topbar upgrade */
+.premiumTopbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.8);
+}
+
+.topSubText {
+  font-size: 13px;
+  color: #8b7a3a;
+}
+
+/* Hero upgrade */
+.premiumHero {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroGlass {
+  max-width: 800px;
+  padding: 30px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  color: white;
+}
+
+.heroBadge {
+  background: rgba(255,215,0,0.2);
+  color: gold;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.heroLead {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.heroMini {
+  font-size: 14px;
+  color: #f5f5dc;
+}
+
+.heroActionRow {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Shop */
+.premiumShopSection {
+  padding-top: 10px;
+}
+
+.shopHeader {
+  margin-bottom: 20px;
+}
+
+.shopSubtitle {
+  color: #888;
+  font-size: 14px;
+}
+
+.shopToolbar {
+  margin-bottom: 25px;
+}
+
+/* Search */
+.shopSearch {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Category buttons */
+.categoryChips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chipBtn {
+  border: 1px solid #e7d39b;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+}
+
+.chipBtnActive {
+  background: gold;
+  color: black;
+}
+
+/* Grid */
+.premiumProductGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.premiumCard {
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.premiumCard:hover {
+  transform: translateY(-8px);
+}
+
+/* Image */
+.premiumImageWrap {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.premiumCard:hover .productImage {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.45));
+}
+
+.productImageOverlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+.productCategoryBadge {
+  color: white;
+  font-size: 12px;
+}
+
+/* Info */
+.premiumProductInfo {
+  padding: 15px;
+}
+
+.productName {
+  font-size: 18px;
+}
+
+.productDescription {
+  font-size: 13px;
+  color: #777;
+}
+
+/* Price row */
+.productMetaRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.stockText {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Button */
+.premiumBuyBtn {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* Empty state */
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+/* ================= END PREMIUM ================= */
+
+@keyframes sacredGlow {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.18));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.34));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.2));
+  }
+}
+
+.productImage {
+  animation: sacredGlow 3s ease-in-out infinite;
+}

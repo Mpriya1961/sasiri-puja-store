@@ -89,17 +89,22 @@ export default function AdminClient() {
   }
 
   async function handleLogout() {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-      router.push("/login");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      alert("Logout failed");
+  try {
+    const res = await fetch("/api/auth/logout", {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      throw new Error("Logout failed");
     }
+
+    router.replace("/login");
+    router.refresh();
+  } catch (error) {
+    console.error(error);
+    alert("Logout failed");
   }
+}
 
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-10">

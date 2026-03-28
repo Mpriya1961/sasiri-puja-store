@@ -1,13 +1,7 @@
-import { redirect } from "next/navigation";
-import { getSessionUser } from "@/lib/auth";
 import AdminClient from "./AdminClient";
 
-export default async function AdminPage() {
-  const user = await getSessionUser();
+export const dynamic = "force-dynamic";
 
-  if (!user) {
-    redirect("/login");
-  }
-
+export default function AdminPage() {
   return <AdminClient />;
 }
